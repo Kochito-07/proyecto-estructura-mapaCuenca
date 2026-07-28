@@ -1,0 +1,5 @@
+NODE,Parque Calderon,400,300
+NODE,Mercado 9 de Octubre,200,150
+NODE,Hotel Italia,700,200
+EDGE,Parque Calderon,Mercado 9 de Octubre,true
+EDGE,Mercado 9 de Octubre,Hotel Italia,false
