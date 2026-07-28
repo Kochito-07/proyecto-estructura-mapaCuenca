@@ -63,5 +63,4 @@ public class Graph<T> {
     public boolean contains(T data) {
         return graph.containsKey(new Node<>(data));
     }
-    
 }
