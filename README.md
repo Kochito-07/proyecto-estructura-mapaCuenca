@@ -186,12 +186,12 @@ public PathResult<T> find(Graph<T> graph, T start, T end) {
 
 | Caso | Algoritmo | Inicio | Destino | Nodos visitados | Cantidad de aristas (ruta) | Tiempo |
 |---|---|---|---|---|---|---|
-| 1 | BFS | | | | | |
-| 1 | DFS | | | | | |
-| 2 | BFS | | | | | |
-| 2 | DFS | | | | | |
-| 3 | BFS | | | | | |
-| 3 | DFS | | | | | |
+| 1 | BFS |Parque Calderon  | Parque San Blas| 16|15 | 0.169 ms |
+| 1 | DFS | Parque Calderon |Parque San Blas  | 8| 7| 0.23 ms|
+| 2 | BFS | Hotel Italia|Esquina presidente borrero y Mariscal Sucre | 7 | 6| 0.21 ms|
+| 2 | DFS | Hotel Italia| Esquina presidente borrero y Mariscal Sucre| 6| 5| 0.13 ms |
+| 3 | BFS |Esquina Gran Colombia Y Hermano Miguel |Parque San Blas |6 | 5| 0.21|
+| 3 | DFS | Esquina Gran Colombia Y Hermano Miguel|Parque San Blas |6 | 5|0.20 ms  |
 
 ## Análisis de resultados
 
