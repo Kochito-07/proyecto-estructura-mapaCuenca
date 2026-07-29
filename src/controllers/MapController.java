@@ -7,8 +7,9 @@ import structures.graphs.PathResult;
 import structures.node.Node;
 import views.MainFrame;
 import structures.graphs.implementations.BFSPathFinder;
-import structures.graphs.implementations.DFSPathFinder; 
+import structures.graphs.implementations.DFSPathFinder;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 public class MapController {
@@ -59,7 +60,8 @@ public class MapController {
             BFSPathFinder<MapPoint> bfs = new BFSPathFinder<>();
             PathResult<MapPoint> resultado = bfs.find(graph, inicio, destino);
             System.out.println("BFS: " + resultado.toString());
-            view.mapPanel.setRuta(resultado.getPath());
+            
+            view.mapPanel.setRuta(resultado.getPath(), new Color(46, 204, 113));
         }
     }
 
@@ -73,7 +75,8 @@ public class MapController {
             DFSPathFinder<MapPoint> dfs = new DFSPathFinder<>();
             PathResult<MapPoint> resultado = dfs.find(graph, inicio, destino);
             System.out.println("DFS: " + resultado.toString());
-            view.mapPanel.setRuta(resultado.getPath());
+            
+            view.mapPanel.setRuta(resultado.getPath(), new Color(155, 89, 182));
         }
     }
 }

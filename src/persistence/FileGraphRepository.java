@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -23,7 +24,6 @@ public class FileGraphRepository implements GraphRepository<MapPoint> {
     @Override
     public void save(Graph<MapPoint> graph) {
         try (FileWriter writer = new FileWriter(filePath)) {
-
             for (Node<MapPoint> node : graph.getNodes()) {
                 MapPoint point = node.getData();
                 writer.write(String.format("NODE,%s,%d,%d%n",
@@ -62,7 +62,6 @@ public class FileGraphRepository implements GraphRepository<MapPoint> {
                     }
                 }
             }
-
         } catch (IOException e) {
             throw new RuntimeException("Error al guardar el grafo en " + filePath, e);
         }
@@ -71,7 +70,7 @@ public class FileGraphRepository implements GraphRepository<MapPoint> {
     @Override
     public Graph<MapPoint> load() {
         Graph<MapPoint> graph = new Graph<>();
-        Set<String> idsRegistrados = new HashSet<>();
+        Map<String, MapPoint> nodosReales = new HashMap<>();
 
         java.io.File file = new java.io.File(filePath);
         if (!file.exists()) {
@@ -93,15 +92,18 @@ public class FileGraphRepository implements GraphRepository<MapPoint> {
                     if (!validarNode(partes, numeroLinea)) continue;
 
                     String id = partes[1].trim();
-                    if (idsRegistrados.contains(id)) {
-                        System.out.println("Aviso: id de nodo duplicado '" + id + "' en línea " + numeroLinea + ", se ignora.");
+                    if (nodosReales.containsKey(id)) {
+                        System.out.println("Aviso: id duplicado '" + id + "', se ignora.");
                         continue;
                     }
 
                     int x = Integer.parseInt(partes[2].trim());
                     int y = Integer.parseInt(partes[3].trim());
-                    graph.add(new MapPoint(id, x, y));
-                    idsRegistrados.add(id);
+                    
+                    MapPoint nuevoPunto = new MapPoint(id, x, y);
+                    graph.add(nuevoPunto);
+                    
+                    nodosReales.put(id, nuevoPunto);
 
                 } else if (partes[0].equals("EDGE")) {
                     if (!validarEdge(partes, numeroLinea)) continue;
@@ -110,60 +112,44 @@ public class FileGraphRepository implements GraphRepository<MapPoint> {
                     String toId = partes[2].trim();
                     boolean bidireccional = Boolean.parseBoolean(partes[3].trim());
 
-                    if (!idsRegistrados.contains(fromId) || !idsRegistrados.contains(toId)) {
-                        System.out.println("Aviso: arista en línea " + numeroLinea +
-                                " referencia un nodo inexistente ('" + fromId + "' o '" + toId + "'), se ignora.");
+                    MapPoint from = nodosReales.get(fromId);
+                    MapPoint to = nodosReales.get(toId);
+
+                    if (from == null || to == null) {
+                        System.out.println("Aviso: arista referencia nodo inexistente, se ignora.");
                         continue;
                     }
-
-                    MapPoint from = new MapPoint(fromId, 0, 0);
-                    MapPoint to = new MapPoint(toId, 0, 0);
 
                     if (bidireccional) {
                         graph.addEdge(from, to);
                     } else {
                         graph.addEdgeUni(from, to);
                     }
-                } else {
-                    System.out.println("Aviso: línea " + numeroLinea + " con tipo de registro desconocido, se ignora.");
                 }
             }
 
         } catch (IOException e) {
-            throw new RuntimeException("Error al leer el grafo desde " + filePath, e);
+            throw new RuntimeException("Error al leer el grafo", e);
         }
 
         return graph;
     }
 
     private boolean validarNode(String[] partes, int numeroLinea) {
-        if (partes.length < 4) {
-            System.out.println("Aviso: NODE incompleto en línea " + numeroLinea + ", se ignora.");
-            return false;
-        }
-        if (partes[1].trim().isEmpty()) {
-            System.out.println("Aviso: NODE sin id en línea " + numeroLinea + ", se ignora.");
-            return false;
-        }
+        if (partes.length < 4) return false;
+        if (partes[1].trim().isEmpty()) return false;
         try {
             Integer.parseInt(partes[2].trim());
             Integer.parseInt(partes[3].trim());
         } catch (NumberFormatException e) {
-            System.out.println("Aviso: NODE con coordenadas inválidas en línea " + numeroLinea + ", se ignora.");
             return false;
         }
         return true;
     }
 
     private boolean validarEdge(String[] partes, int numeroLinea) {
-        if (partes.length < 4) {
-            System.out.println("Aviso: EDGE incompleto en línea " + numeroLinea + ", se ignora.");
-            return false;
-        }
-        if (partes[1].trim().isEmpty() || partes[2].trim().isEmpty()) {
-            System.out.println("Aviso: EDGE con id vacío en línea " + numeroLinea + ", se ignora.");
-            return false;
-        }
+        if (partes.length < 4) return false;
+        if (partes[1].trim().isEmpty() || partes[2].trim().isEmpty()) return false;
         return true;
     }
 }

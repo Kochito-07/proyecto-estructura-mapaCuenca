@@ -1,5 +1,9 @@
-NODE,Parque Calderon,400,300
-NODE,Mercado 9 de Octubre,200,150
-NODE,Hotel Italia,700,200
-EDGE,Parque Calderon,Mercado 9 de Octubre,true
-EDGE,Mercado 9 de Octubre,Hotel Italia,false
+NODE,Mercado 9 de Octubre,265,195
+NODE,Esq Gran Colombia y Luis Cordero,375,215
+NODE,Parque Calderon,435,335
+NODE,Esq Gran Colombia y Hermano Miguel,580,250
+NODE,Hotel Italia,800,285
+EDGE,Mercado 9 de Octubre,Esq Gran Colombia y Luis Cordero,true
+EDGE,Esq Gran Colombia y Luis Cordero,Parque Calderon,true
+EDGE,Esq Gran Colombia y Luis Cordero,Esq Gran Colombia y Hermano Miguel,true
+EDGE,Esq Gran Colombia y Hermano Miguel,Hotel Italia,true

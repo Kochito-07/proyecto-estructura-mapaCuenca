@@ -5,10 +5,11 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -17,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame {
+    
     public MapPanel mapPanel;
     public JButton btnBFS;
     public JButton btnDFS;
@@ -25,40 +27,40 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         setTitle("Proyecto Final - Búsqueda de Rutas");
-        setSize(900, 600);
+        setSize(1000, 600); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        JLayeredPane layeredPane = new JLayeredPane();
-        setContentPane(layeredPane);
+        setLayout(new BorderLayout());
 
-        mapPanel = new MapPanel();
-        mapPanel.setBounds(0, 0, 900, 600);
-        layeredPane.add(mapPanel, JLayeredPane.DEFAULT_LAYER);
 
-        JPanel floatingMenu = new JPanel();
-        floatingMenu.setLayout(new GridLayout(4, 1, 10, 10));
-        floatingMenu.setBackground(new Color(255, 255, 255, 200));
-        floatingMenu.setBounds(20, 20, 200, 200);
-        floatingMenu.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        JPanel controlPanel = new JPanel();
+        controlPanel.setPreferredSize(new Dimension(250, 600));
+        controlPanel.setBackground(new Color(240, 244, 248));
+        controlPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        
+        controlPanel.setLayout(new GridLayout(10, 1, 10, 15));
 
-        floatingMenu.add(new JLabel("Inicio:"));
+        controlPanel.add(new JLabel("Nodo de Inicio:"));
         comboInicio = new JComboBox<>();
-        floatingMenu.add(comboInicio);
+        controlPanel.add(comboInicio);
 
-        floatingMenu.add(new JLabel("Destino:"));
+        controlPanel.add(new JLabel("Nodo de Destino:"));
         comboDestino = new JComboBox<>();
-        floatingMenu.add(comboDestino);
+        controlPanel.add(comboDestino);
 
-        layeredPane.add(floatingMenu, JLayeredPane.PALETTE_LAYER);
+        controlPanel.add(new JLabel(""));
 
         btnBFS = new RoundedButton("Ejecutar BFS", new Color(46, 204, 113), new Color(39, 174, 96), 20);
-        btnBFS.setBounds(20, 240, 200, 40);
-        layeredPane.add(btnBFS, JLayeredPane.PALETTE_LAYER);
+        controlPanel.add(btnBFS);
         
         btnDFS = new RoundedButton("Ejecutar DFS", new Color(155, 89, 182), new Color(142, 68, 173), 20);
-        btnDFS.setBounds(20, 290, 200, 40);
-        layeredPane.add(btnDFS, JLayeredPane.PALETTE_LAYER);
+        controlPanel.add(btnDFS);
+
+        add(controlPanel, BorderLayout.WEST);
+
+        mapPanel = new MapPanel();
+        add(mapPanel, BorderLayout.CENTER);
     }
 
     private class RoundedButton extends JButton {

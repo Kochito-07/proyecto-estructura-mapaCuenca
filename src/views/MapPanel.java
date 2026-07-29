@@ -13,6 +13,7 @@ public class MapPanel extends JPanel {
     private Image backgroundImage;
     private Graph<MapPoint> graph;
     private Set<MapPoint> rutaActual;
+    private Color colorRuta = new Color(46, 204, 113);
 
     public MapPanel() {
         File imgFile = new File("resources/mapa_cuenca.png");
@@ -21,6 +22,12 @@ public class MapPanel extends JPanel {
         } else {
             System.out.println("No se encontró la imagen en: " + imgFile.getAbsolutePath());
         }
+
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                System.out.println("NODE,Nuevo_Punto," + evt.getX() + "," + evt.getY());
+            }
+        });
     }
 
     public void setGraph(Graph<MapPoint> graph) {
@@ -28,8 +35,9 @@ public class MapPanel extends JPanel {
         repaint();
     }
 
-    public void setRuta(Set<MapPoint> ruta) {
+    public void setRuta(Set<MapPoint> ruta, Color color) {
         this.rutaActual = ruta;
+        this.colorRuta = color;
         repaint();
     }
 
@@ -58,8 +66,9 @@ public class MapPanel extends JPanel {
             }
         }
 
+
         if (rutaActual != null && !rutaActual.isEmpty()) {
-            g2.setColor(new Color(46, 204, 113)); 
+            g2.setColor(colorRuta);
             g2.setStroke(new BasicStroke(5));
             MapPoint prev = null;
             for (MapPoint p : rutaActual) {
@@ -70,7 +79,7 @@ public class MapPanel extends JPanel {
             }
         }
 
-        g2.setColor(new Color(41, 128, 185)); // Azul
+        g2.setColor(new Color(41, 128, 185));
         for (Node<MapPoint> node : graph.getNodes()) {
             MapPoint p = node.getData();
             g2.fillOval(p.getX() - 10, p.getY() - 10, 20, 20);
