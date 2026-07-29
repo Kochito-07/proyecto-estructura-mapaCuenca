@@ -1,5 +1,5 @@
 NODE,Seleccione Ruta,0,0
-NODE,Mercado 9 de Octubre,291,184
+NODE,Mercado 9 de Octubre,291,160
 NODE,Esq Gran Colombia y Luis Cordero,177,215
 NODE,Parque Calderon,340,280
 NODE,Esq Gran Colombia y Hermano Miguel,284,241
@@ -12,19 +12,16 @@ NODE,Esq Mariano Cueva y Mariscal Lamar,342,197
 NODE,Esq Vargas Machuca y Mariscal Lamar,396,211
 NODE,Esq Tomás Ordoñez y Mariscal Lamar,449,224
 NODE,Esq Manuel Vega y Mariscal Lamar,499,237
-
 NODE,Esq Presidente Borrero y Gran Colombia,230,225
 NODE,Esq Mariano Cueva y Gran Colombia,334,252
 NODE,Esq Vargas Machuca y Gran Colombia,384,265
 NODE,Esq Tomás Ordoñez y Gran Colombia,440,280
 NODE,Esq Manuel Vega y Gran Colombia,492,292
-
-NODE,Esq Tomás Ordoñez y  Simón Bolívar,432,334
-
+NODE,Esq Tomás Ordoñez y Simón Bolívar,432,334
 EDGE,Esq Luis Cordero y Mariscal Lamar,Esq Presidente Borrero y Mariscal Lamar,true
 EDGE,Esq Presidente Borrero y Mariscal Lamar,Esq Hermano Miguel y Mariscal Lamar,true
 EDGE,Esq Hermano Miguel y Mariscal Lamar,Mercado 9 de Octubre,true
-EDGE,Mercado 9 de Octubre,Esq Mariano Cueva y Mariscal Lamar,true
+EDGE,Esq Hermano Miguel y Mariscal Lamar,Esq Mariano Cueva y Mariscal Lamar,true
 EDGE,Esq Mariano Cueva y Mariscal Lamar,Esq Vargas Machuca y Mariscal Lamar,true
 EDGE,Esq Vargas Machuca y Mariscal Lamar,Esq Tomás Ordoñez y Mariscal Lamar,true
 EDGE,Esq Tomás Ordoñez y Mariscal Lamar,Esq Manuel Vega y Mariscal Lamar,true
@@ -42,7 +39,6 @@ EDGE,Esq Mariano Cueva y Mariscal Lamar,Esq Mariano Cueva y Gran Colombia,true
 EDGE,Esq Vargas Machuca y Mariscal Lamar,Esq Vargas Machuca y Gran Colombia,true
 EDGE,Esq Tomás Ordoñez y Mariscal Lamar,Esq Tomás Ordoñez y Gran Colombia,true
 EDGE,Esq Manuel Vega y Mariscal Lamar,Esq Manuel Vega y Gran Colombia,true
-EDGE,Esq Tomás Ordoñez y Gran Colombia,Esq Tomás Ordoñez y  Simón Bolívar,true
+EDGE,Esq Tomás Ordoñez y Gran Colombia,Esq Tomás Ordoñez y Simón Bolívar,true
 EDGE,Esq Tomás Ordoñez y Simón Bolívar,Parque San Blas,true
 EDGE,Esq Mariano Cueva y Gran Colombia,Parque Calderon,true
-EDGE,Esq Tomás Ordoñez y  Simón Bolívar,Parque San Blas,true
