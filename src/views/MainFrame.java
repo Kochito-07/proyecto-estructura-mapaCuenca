@@ -71,6 +71,7 @@ public class MainFrame extends JFrame {
         javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(mapPanel);
         scrollPane.setBorder(null);
         add(scrollPane, BorderLayout.CENTER);
+        add(mapPanel, BorderLayout.CENTER);
     }
 
     private class RoundedButton extends JButton {

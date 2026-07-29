@@ -28,17 +28,21 @@ public class MapPanel extends JPanel {
     public MapPanel() {
         File imgFile = new File("resources/mapa_cuenca.png");
         if (imgFile.exists()) {
-            ImageIcon icon = new ImageIcon(imgFile.getAbsolutePath());
-            backgroundImage = icon.getImage();
-            
-            setPreferredSize(new Dimension(icon.getIconWidth(), icon.getIconHeight()));
-        } else {
-            System.out.println("No se encontró la imagen en: " + imgFile.getAbsolutePath());
+            backgroundImage = new ImageIcon(imgFile.getAbsolutePath()).getImage();
         }
 
         this.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                System.out.println("NODE,Nuevo_Punto," + evt.getX() + "," + evt.getY());
+                if (backgroundImage != null) {
+                    double scale = Math.min((double) getWidth() / backgroundImage.getWidth(null), (double) getHeight() / backgroundImage.getHeight(null));
+                    double xOffset = (getWidth() - (backgroundImage.getWidth(null) * scale)) / 2.0;
+                    double yOffset = (getHeight() - (backgroundImage.getHeight(null) * scale)) / 2.0;
+
+                    int realX = (int) ((evt.getX() - xOffset) / scale);
+                    int realY = (int) ((evt.getY() - yOffset) / scale);
+
+                    System.out.println("NODE,Nuevo_Punto," + realX + "," + realY);
+                }
             }
         });
     }
@@ -92,6 +96,14 @@ public class MapPanel extends JPanel {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         if (backgroundImage != null) {
+            double scale = Math.min((double) getWidth() / backgroundImage.getWidth(null), (double) getHeight() / backgroundImage.getHeight(null));
+            
+            double xOffset = (getWidth() - (backgroundImage.getWidth(null) * scale)) / 2.0;
+            double yOffset = (getHeight() - (backgroundImage.getHeight(null) * scale)) / 2.0;
+
+            g2.translate(xOffset, yOffset);
+            g2.scale(scale, scale);
+
             g2.drawImage(backgroundImage, 0, 0, this);
         }
 
